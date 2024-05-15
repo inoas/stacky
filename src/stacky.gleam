@@ -159,3 +159,10 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 
 @external(erlang, "stacky_ffi", "stacky_erlang_stacktrace")
 fn stacky_erlang_stacktrace() -> List(StackFrameTuple)
+
+pub fn main() {
+  io.println("\nFor example stack traces, run:\n")
+  io.println("  gleam run -m stacky/internal/example\n")
+  io.println("...or...\n")
+  io.println("  gleam run -m stacky/internal/sub_dir/example_in_sub_dir\n")
+}

@@ -1,15 +1,14 @@
-import gleam/io
+import pprint
 import stacky
 
 pub fn main() {
-  // You should proabably use `pprint.debug()` instead of `io.debug()`:
   stacky.trace()
-  |> io.debug
+  |> pprint.debug
   // See the strack trace
   |> stacky.frame(0)
-  |> io.debug
+  |> pprint.debug
   // See the top most stack frame, from this call site
-  |> stacky.module_name
-  |> io.debug
+  |> stacky.gleam_module_name
+  |> pprint.debug
   // See the current module name, from this call site
 }

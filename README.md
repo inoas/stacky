@@ -2,35 +2,22 @@
 
 ## a stack trace of stack frames with module name, function name, arity, file name and line number
 
-[![Package Version](https://img.shields.io/hexpm/v/stacky)](https://hex.pm/packages/stacky)
+[![Package
+<a href="https://github.com/inoas/stacky/releases"><img src="https://img.shields.io/github/release/inoas/stacky" alt="GitHub release"></a>
+<a href="https://discord.gg/Fm8Pwmy"><img src="https://img.shields.io/discord/768594524158427167?color=blue" alt="Discord chat"></a>
+![CI](https://github.com/inoas/stacky/workflows/test/badge.svg?branch=main)
+Version](https://img.shields.io/hexpm/v/stacky)](https://hex.pm/packages/stacky)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/stacky/)
-
-```shell
-gleam add stacky
-```
+![Erlang-compatible](https://img.shields.io/badge/target-erlang-b83998)
 
 Best used with [pprint](https://hexdocs.pm/pprint/).
 
-## Usage
-
-### io.debug
-
-```gleam
-import gleam/io
-import stacky
-
-pub fn main() {
-  // You should proabably use pprint.debug()` instead of `io.debug():
-  stacky.trace()
-  |> io.debug // See the strack trace
-  |> stacky.frame(0)
-  |> io.debug // See the top most stack frame, from this call site
-  |> stacky.module_name
-  |> io.debug // See the current module name, from this call site
-}
+```shell
+gleam add stacky
+gleam add pprint
 ```
 
-### pprint.debug
+## Usage
 
 ```gleam
 import pprint
@@ -43,39 +30,39 @@ pub fn main() {
   |> stacky.frame(0)
   |> pprint.debug
   // See the top most stack frame, from this call site
-  |> stacky.module_name
+  |> stacky.gleam_module_name
   |> pprint.debug
-  // See the current module name, from this call site
+  // See the current gleam module name, from this call site
 }
 ```
 
-StdOut:
+`stdout`:
 
-```text
+```gleam
 StackTrace([
   StackFrame(
-    ModuleName("stacky@pprint_debug_example"),
+    ErlangModuleName("stacky@example"),
     FunctionName("main"),
     FunctionArity(0),
-    FileName("/Users/leo/local-dev/gleam/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@pprint_debug_example.erl"),
+    FileName("/Users/leo/local-dev/gleam/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@example.erl"),
     ErlangLineNumber(8),
   ),
   StackFrame(
-    ModuleName("stacky@@main"),
+    ErlangModuleName("stacky@@main"),
     FunctionName("run"),
     FunctionArity(1),
     FileName("/Users/leo/local-dev/gleam/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@@main.erl"),
     ErlangLineNumber(11),
   ),
   StackFrame(
-    ModuleName("erl_eval"),
+    ErlangModuleName("erl_eval"),
     FunctionName("do_apply"),
     FunctionArity(7),
     FileName("erl_eval.erl"),
     ErlangLineNumber(746),
   ),
   StackFrame(
-    ModuleName("init"),
+    ErlangModuleName("init"),
     FunctionName("start_it"),
     FunctionArity(1),
     FileName([
@@ -84,7 +71,7 @@ StackTrace([
     ErlangLineNumber(-1),
   ),
   StackFrame(
-    ModuleName("init"),
+    ErlangModuleName("init"),
     FunctionName("start_em"),
     FunctionArity(1),
     FileName([
@@ -93,7 +80,7 @@ StackTrace([
     ErlangLineNumber(-1),
   ),
   StackFrame(
-    ModuleName("init"),
+    ErlangModuleName("init"),
     FunctionName("do_boot"),
     FunctionArity(3),
     FileName([
@@ -102,22 +89,26 @@ StackTrace([
     ErlangLineNumber(-1),
   ),
 ])
-StackFrame(
-  ModuleName("stacky@pprint_debug_example"),
-  FunctionName("main"),
-  FunctionArity(0),
-  FileName("/Users/leo/local-dev/gleam/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@pprint_debug_example.erl"),
-  ErlangLineNumber(8),
-)
+```
 
-"stacky@pprint_debug_example"
+```
+StackFrame(
+  ErlangModuleName("erl_eval"),
+  FunctionName("do_apply"),
+  FunctionArity(7),
+  FileName("erl_eval.erl"),
+  ErlangLineNumber(746),
+)
+```
+
+```
+"erl_eval"
 ```
 
 ## Demo
 
 ```shell
-gleam run -m stacky/io_debug_example # io.debug example
-gleam run -m stacky/pprint_debug_example # pprint.debug example
+gleam run -m stacky/sub_dir/example_in_sub_dir.gleam
 ```
 
 Further documentation can be found at <https://hexdocs.pm/stacky>.

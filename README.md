@@ -32,7 +32,7 @@ pub fn main() {
 
 ### pprint.debug
 
-````gleam
+```gleam
 import pprint
 import stacky
 
@@ -111,7 +111,7 @@ StackFrame(
 )
 
 "stacky@pprint_debug_example"
-````
+```
 
 ## Demo
 

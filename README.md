@@ -79,27 +79,21 @@ StackTrace([
     ErlangModuleName("init"),
     FunctionName("start_it"),
     FunctionArity(1),
-    ErlangFileName([
-      110, 111, 45, 102, 105, 108, 101,
-    ]),
+    ErlangFileName("not-a-file"),
     ErlangLineNumber(-1),
   ),
   StackFrame(
     ErlangModuleName("init"),
     FunctionName("start_em"),
     FunctionArity(1),
-    ErlangFileName([
-      110, 111, 45, 102, 105, 108, 101,
-    ]),
+    ErlangFileName("not-a-file"),
     ErlangLineNumber(-1),
   ),
   StackFrame(
     ErlangModuleName("init"),
     FunctionName("do_boot"),
     FunctionArity(3),
-    ErlangFileName([
-      110, 111, 45, 102, 105, 108, 101,
-    ]),
+    ErlangFileName("not-a-file"),
     ErlangLineNumber(-1),
   ),
 ])

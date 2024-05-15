@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 - 2024-05-15
+
+- fix "not a file"
+
 ## 1.0.2 - 2024-05-15
 
 - Pin Erlang and Gleam versions and fix CI

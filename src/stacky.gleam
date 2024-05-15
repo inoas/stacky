@@ -183,9 +183,38 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 @external(erlang, "stacky_ffi", "stacky_erlang_stacktrace")
 fn stacky_erlang_stacktrace() -> List(StackFrameTuple)
 
+// pub fn main() {
+//   io.println("\nFor example stack traces, run:\n")
+//   io.println("  gleam run -m stacky/internal/example\n")
+//   io.println("...or...\n")
+//   io.println("  gleam run -m stacky/internal/sub_dir/example_in_sub_dir\n")
+// }
+//
+
+import pprint
+
 pub fn main() {
-  io.println("\nFor example stack traces, run:\n")
-  io.println("  gleam run -m stacky/internal/example\n")
-  io.println("...or...\n")
-  io.println("  gleam run -m stacky/internal/sub_dir/example_in_sub_dir\n")
+  let stack =
+    trace()
+    // See the strack trace:
+    |> pprint.debug
+
+  let frame =
+    stack
+    |> frame(0)
+    // See the top most stack frame, from this call site:
+    |> pprint.debug
+
+  frame
+  |> gleam_module_name
+  // See the current module name, from this call site:
+  |> pprint.debug
+
+  frame
+  |> function_name
+  // See the current function name, from this call site:
+  |> pprint.debug
+
+  // prints gleam module.function and erlang with line number to stdout
+  frame |> print_frame_ln
 }

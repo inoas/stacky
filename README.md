@@ -1,4 +1,6 @@
-# Stacky ☆ BEAM stack trace in Gleam: a stack trace of stack frames with module name, function name, arity, file name and line number
+# Stacky ☆ BEAM stack trace in Gleam
+
+## a stack trace of stack frames with module name, function name, arity, file name and line number
 
 [![Package Version](https://img.shields.io/hexpm/v/stacky)](https://hex.pm/packages/stacky)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/stacky/)

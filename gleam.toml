@@ -1,12 +1,14 @@
 name = "stacky"
-version = "1.0.1"
+version = "1.0.2"
 description = "BEAM stack trace in Gleam: a stack trace of stack frames with module name, function name, arity, file name and line number"
 licences = ["Apache-2.0"]
 repository = { type = "github", user = "inoas", repo = "stacky" }
 target = "erlang"
-dev-dependencies = { gleeunit = ">= 1.1.2 and < 2.0.0" }
 
 [dependencies]
 gleam_stdlib = ">= 0.34.0 and < 2.0.0"
 pprint = ">= 1.0.3 and < 2.0.0"
 gleam_erlang = ">= 0.25.0 and < 1.0.0"
+
+[dev-dependencies]
+gleeunit = ">= 1.1.2 and < 2.0.0"

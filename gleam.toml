@@ -1,0 +1,14 @@
+name = "stacky"
+version = "0.1.0"
+
+# Fill out these fields if you intend to generate HTML documentation or publish
+# your project to the Hex package manager.
+#
+description = "BEAM stack trace in Gleam: a stack trace of stack frames with module name, function name, arity, file name and line number"
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "inoas", repo = "stacky" }
+target = "erlang"
+
+[dependencies]
+gleam_stdlib = ">= 0.34.0 and < 2.0.0"
+pprint = ">= 1.0.3 and < 2.0.0"

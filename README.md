@@ -13,6 +13,8 @@ Best used with [pprint](https://hexdocs.pm/pprint/).
 
 ## Usage
 
+### io.debug
+
 ```gleam
 import gleam/io
 import stacky
@@ -25,6 +27,25 @@ pub fn main() {
   |> io.debug // See the top most stack frame, from this call site
   |> stacky.module_name
   |> io.debug // See the current module name, from this call site
+}
+```
+
+### pprint.debug
+
+```gleam
+import pprint
+import stacky
+
+pub fn main() {
+  stacky.trace()
+  |> pprint.debug
+  // See the strack trace
+  |> stacky.frame(0)
+  |> pprint.debug
+  // See the top most stack frame, from this call site
+  |> stacky.module_name
+  |> pprint.debug
+  // See the current module name, from this call site
 }
 ```
 

@@ -1,6 +1,6 @@
 # Stacky ☆ BEAM stack trace in Gleam
 
-## a stack trace of stack frames with module name, function name, arity, file name and line number
+**a stack trace of stack frames with module name, function name, arity, file name and line number**
 
 [![Package
 <a href="https://github.com/inoas/stacky/releases"><img src="https://img.shields.io/github/release/inoas/stacky" alt="GitHub release"></a>

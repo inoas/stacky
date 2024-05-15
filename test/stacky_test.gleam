@@ -88,5 +88,5 @@ pub fn stacky_test() {
   |> should.equal(expected_frame)
 
   gleam_module_name
-  |> should.equal("stacky_test (erlang module)")
+  |> should.equal("stacky_test")
 }

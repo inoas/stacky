@@ -77,9 +77,13 @@ pub fn stacky_test() {
     StackFrame(..head_frame, erlang_file_name: ErlangFileName(erlang_file_name))
   let trace = StackTrace([head_frame, ..frames])
 
-  let frame = trace |> stacky.frame(0)
+  let frame =
+    trace
+    |> stacky.frame(0)
 
-  let gleam_module_name = frame |> stacky.gleam_module_name
+  let gleam_module_name =
+    frame
+    |> stacky.gleam_module_name
 
   trace
   |> should.equal(expected_trace)

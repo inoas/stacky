@@ -66,7 +66,10 @@ pub fn trace() -> StackTrace {
 
 pub fn frame(stacktrace: StackTrace, index: Int) -> StackFrame {
   let StackTrace(stacktrace) = stacktrace
-  case stacktrace |> list_at(index) {
+  case
+    stacktrace
+    |> list_at(index)
+  {
     Ok(stackframe) -> stackframe
     Error(_) -> {
       let panic_msg = "No stack frame at index " <> int.to_string(index) <> "."
@@ -81,21 +84,29 @@ pub fn erlang_module_name(stack_frame: StackFrame) -> String {
 }
 
 pub fn gleam_module_name(stack_frame: StackFrame) -> String {
-  let erlang_module_name = stack_frame |> erlang_module_name()
+  let erlang_module_name =
+    stack_frame
+    |> erlang_module_name()
 
   let assert Ok(double_at_re) = regex.from_string("@@")
   let assert Ok(single_at_re) = regex.from_string("@")
   let has_double_ats =
-    erlang_module_name |> regex.scan(with: double_at_re) |> list.is_empty
+    erlang_module_name
+    |> regex.scan(with: double_at_re)
+    |> list.is_empty
     == False
   let has_ats =
-    erlang_module_name |> regex.scan(with: single_at_re) |> list.is_empty
+    erlang_module_name
+    |> regex.scan(with: single_at_re)
+    |> list.is_empty
     == False
 
   case has_double_ats, has_ats {
     True, _ -> erlang_module_name <> " (gleam internal module)"
     False, False -> erlang_module_name
-    False, True -> erlang_module_name |> string.replace(each: "@", with: "/")
+    False, True ->
+      erlang_module_name
+      |> string.replace(each: "@", with: "/")
   }
 }
 
@@ -120,11 +131,23 @@ pub fn erlang_line_number(stack_frame: StackFrame) -> Int {
 }
 
 pub fn frame_to_string(stack_frame: StackFrame) -> String {
-  let erlang_module_name = stack_frame |> gleam_module_name()
-  let function_name = stack_frame |> function_name()
-  let function_arity = stack_frame |> function_arity() |> int.to_string
-  let erlang_file_name = stack_frame |> erlang_file_name()
-  let erlang_line_number = stack_frame |> erlang_line_number() |> int.to_string
+  let erlang_module_name =
+    stack_frame
+    |> gleam_module_name()
+  let function_name =
+    stack_frame
+    |> function_name()
+  let function_arity =
+    stack_frame
+    |> function_arity()
+    |> int.to_string
+  let erlang_file_name =
+    stack_frame
+    |> erlang_file_name()
+  let erlang_line_number =
+    stack_frame
+    |> erlang_line_number()
+    |> int.to_string
 
   erlang_module_name
   <> "."

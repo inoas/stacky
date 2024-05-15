@@ -24,5 +24,6 @@ pub fn other_function() {
   |> pprint.debug
 
   // prints gleam module.function and erlang with line number to stdout
-  frame |> stacky.print_frame_ln
+  frame
+  |> stacky.print_frame_ln
 }

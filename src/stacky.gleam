@@ -9,9 +9,9 @@ import pprint
 /// Gets the stack trace of the current process.
 ///
 pub fn trace() -> StackTrace {
-  let erlang_stack_trace: List(FFiStackFrameTuple) = stacky_erlang_stacktrace()
+  let erlang_stack_trace: List(FFIStackFrameTuple) = stacky_erlang_stacktrace()
   erlang_stack_trace
-  |> list.map(fn(frame: FFiStackFrameTuple) {
+  |> list.map(fn(frame: FFIStackFrameTuple) {
     let #(
       stack_index,
       #(
@@ -273,7 +273,7 @@ pub type ErlangLineNumber {
   ErlangLineNumber(Int)
 }
 
-type FFiStackFrameTuple =
+type FFIStackFrameTuple =
   #(Int, #(String, String, Int, String, Int))
 
 fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
@@ -287,7 +287,7 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 }
 
 @external(erlang, "stacky_ffi", "stacky_erlang_stacktrace")
-fn stacky_erlang_stacktrace() -> List(FFiStackFrameTuple)
+fn stacky_erlang_stacktrace() -> List(FFIStackFrameTuple)
 
 /// This is a library and the main function
 /// exists as a placeholder if called as a function

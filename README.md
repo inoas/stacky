@@ -8,10 +8,6 @@
 
 **A stack trace of stack frames with module name, function name, arity, file name and line number!**
 
-Best used with [pprint](https://hexdocs.pm/pprint/).
-
----
-
 ## Installation
 
 ```shell

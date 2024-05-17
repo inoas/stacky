@@ -1,7 +1,7 @@
 import pprint
 import stacky
 
-pub fn other_function() {
+pub fn some_function_that_calls_stacky() {
   let stack =
     stacky.trace()
     // See the strack trace:
@@ -14,8 +14,8 @@ pub fn other_function() {
     |> pprint.debug
 
   frame
-  |> stacky.gleam_module_name
-  // See the current module name, from this call site:
+  |> stacky.qualified_module_name
+  // See the current qualified module name, from this call site:
   |> pprint.debug
 
   frame

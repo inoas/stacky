@@ -23,7 +23,7 @@ stacky_erlang_stack_trace() ->
                          {atom_to_binary(ModuleName),
                           atom_to_binary(FunctionName),
                           Arity,
-                          <<"unknown">>,
+                          <<"">>,
                           -1};
                      Other ->
                          erlang:display(Other),

@@ -77,25 +77,24 @@ pub fn stacky_test() {
     )
 
   // The ErlangFileName is relative to wherever this test runs so we need to replace it
-  // let StackTrace(trace) = trace
-  let trace = stacky.trace()
-  let assert StackTrace([head_frame, ..frames]) = trace
+  let stack_trace = stacky.trace()
+  let assert StackTrace([head_frame, ..frames]) = stack_trace
   let head_frame =
     StackFrame(..head_frame, erlang_file_name: ErlangFileName(erlang_file_name))
-  let trace = StackTrace([head_frame, ..frames])
+  let stack_trace = StackTrace([head_frame, ..frames])
 
-  let frame =
-    trace
+  let stack_frame =
+    stack_trace
     |> stacky.frame(0)
 
   let gleam_module_name =
-    frame
-    |> stacky.gleam_module_name
+    stack_frame
+    |> stacky.qualified_module_name
 
-  trace
+  stack_trace
   |> should.equal(expected_trace)
 
-  frame
+  stack_frame
   |> should.equal(expected_frame)
 
   gleam_module_name

@@ -22,9 +22,9 @@ pub fn main() {
 
   io.print("\n")
 
-  io.print("Gleam module: ")
+  io.print("Qualified module name: ")
   stackframe
-  |> stacky.gleam_module_name
+  |> stacky.qualified_module_name
   |> io.println
 
   io.print("\n")

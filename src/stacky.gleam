@@ -95,7 +95,10 @@ pub fn frame_to_string(stack_frame: StackFrame) -> String {
     |> int.to_string
   let erlang_module_name =
     stack_frame
-    |> gleam_module_name()
+    |> erlang_module_name()
+  let qualified_module_name =
+    stack_frame
+    |> qualified_module_name()
   let function_name =
     stack_frame
     |> function_name()
@@ -113,19 +116,37 @@ pub fn frame_to_string(stack_frame: StackFrame) -> String {
 
   let line =
     "#"
+    <> " "
     <> stack_index
-    <> " - "
-    <> erlang_module_name
-    <> "."
-    <> function_name
-    <> " - /"
-    <> function_arity
+    |> string.pad_left(to: 2, with: "0")
+    <> "\t"
+
+  let line = case qualified_module_name != erlang_module_name {
+    True -> {
+      let gleam_module_file =
+        qualified_module_name
+        |> gleam_module_file()
+
+      line <> function_name <> "() of " <> gleam_module_file
+    }
+    False ->
+      line
+      <> qualified_module_name
+      <> ":"
+      <> function_name
+      <> "/"
+      <> function_arity
+  }
 
   line
   <> case erlang_file_name {
-    "unknown" -> ""
-    _ -> " - " <> erlang_file_name <> ":" <> erlang_line_number
+    "" -> ""
+    _ -> "\n    \tin " <> erlang_file_name <> ":" <> erlang_line_number
   }
+}
+
+fn gleam_module_file(qualified_module_name: String) -> String {
+  "src/" <> qualified_module_name <> ".gleam"
 }
 
 /// Converts a stack trace to a string.
@@ -201,9 +222,12 @@ pub fn erlang_module_name(stack_frame: StackFrame) -> String {
   erlang_module_name
 }
 
-/// Gets the potential gleam module name from the erlang stack frame.
+/// Gets the qualified module name from the erlang stack frame.
 ///
-pub fn gleam_module_name(stack_frame: StackFrame) -> String {
+/// In case the module name contains `@` (but no `@@`),
+/// those will be replaced with `/` to form a qualified module name.
+///
+pub fn qualified_module_name(stack_frame: StackFrame) -> String {
   let erlang_module_name =
     stack_frame
     |> erlang_module_name()
@@ -222,11 +246,10 @@ pub fn gleam_module_name(stack_frame: StackFrame) -> String {
     == False
 
   case has_double_ats, has_ats {
-    True, _ -> "gleam entrypoint | " <> erlang_module_name
-    False, False -> erlang_module_name
     False, True ->
       erlang_module_name
       |> string.replace(each: "@", with: "/")
+    _, _ -> erlang_module_name
   }
 }
 
@@ -319,6 +342,9 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 
 @external(erlang, "stacky_ffi", "stacky_erlang_stack_trace")
 fn stacky_erlang_stack_trace() -> List(FFIStackFrameTuple)
+
+@external(erlang, "stacky_ffi", "stacky_get_cwd_as_binary")
+fn current_working_directory() -> String
 
 /// This is a library and the main function
 /// exists as a placeholder if called as a function

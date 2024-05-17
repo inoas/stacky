@@ -36,22 +36,28 @@ stackframe
 
 ```plaintext
 Trace to string:
-#6 - stacky/internal/example.main - /0 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@example.erl:8
-#5 - gleam entrypoint | stacky@@main.run - /1 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@@main.erl:11
-#4 - erl_eval.do_apply - /7 - erl_eval.erl:746
-#3 - init.start_it - /1
-#2 - init.start_em - /1
-#1 - init.do_boot - /3
+# 06	main() of src/stacky/internal/examples/example_readme.gleam
+    	in /SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@examples@example_readme.erl:8
+# 05	stacky@@main:run/1
+    	in /SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@@main.erl:11
+# 04	erl_eval:do_apply/7
+    	in erl_eval.erl:746
+# 03	init:start_it/1
+# 02	init:start_em/1
+# 01	init:do_boot/3
 
 Frame with context:
-#6 - stacky/internal/example.main - /0 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@example.erl:8
+# 06	main() of src/stacky/internal/examples/example_readme.gleam
+    	in /SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@examples@example_readme.erl:8
 with context: #("my_context")
 ```
 
-## Demo
+## Demos
 
 ```shell
-gleam run --module stacky/internal/sub_dir/example_in_sub_dir
+gleam run --module stacky/internal/examples/example_1
+gleam run --module stacky/internal/examples/example_2
+gleam run --module stacky/internal/examples/example_3
 ```
 
 Further documentation can be found at <https://hexdocs.pm/stacky>.

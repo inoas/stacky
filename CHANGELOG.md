@@ -1,28 +1,33 @@
 # Changelog
 
+## 1.3.0 - 2024-05-17
+
+- Improved formatting.
+- Make gleam source modules clickable.
+
 ## 1.2.0 - 2024-05-17
 
-- Add index lookup functions from last to first (list index)
-  and/or first to last (stack frame index)
+- Added index lookup functions from last to first (list index)
+  and/or first to last (stack frame index).
 
 ## 1.1.0 - 2024-05-16
 
-- Add inverseck trace index.
-- Add better stdout printing.
+- Addded inverse trace index.
+- Added better stdout printing.
 
 ## 1.0.3 - 2024-05-15
 
-- fix "not a file"
+- Fixes "not a file".
 
 ## 1.0.2 - 2024-05-15
 
-- Pin Erlang and Gleam versions and fix CI
-- Add Changelog
+- Pinned Erlang and Gleam versions and fix CI.
+- Added Changelog.
 
 ## 1.0.1 - 2024-05-15
 
-- Improve readme
+- Improved readme.
 
 ## 1.0.0 - 2024-05-15
 
-- Initial release
+- Released initial version.

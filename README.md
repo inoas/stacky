@@ -48,8 +48,8 @@ Trace to string:
 
 Frame with context:
 # 06	main() of src/stacky/internal/examples/example_readme.gleam
-    	in /SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@examples@example_readme.erl:8
-      context: #("my_context")
+    	in /Users/leo/local-dev/gleam/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@examples@example_readme.erl:8
+    	context: #("my_context")
 ```
 
 ## Demos

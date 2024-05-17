@@ -38,7 +38,7 @@ stackframe
 ```plaintext
 Trace to string:
 #6 - stacky/internal/example.main - /0 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@internal@example.erl:8
-#5 - gleam entrypoint module | stacky@@main.run - /1 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@@main.erl:11
+#5 - gleam entrypoint | stacky@@main.run - /1 - SOME_PATH/stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky@@main.erl:11
 #4 - erl_eval.do_apply - /7 - erl_eval.erl:746
 #3 - init.start_it - /1
 #2 - init.start_em - /1

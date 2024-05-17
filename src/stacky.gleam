@@ -169,8 +169,7 @@ pub fn erlang_module_name(stack_frame: StackFrame) -> String {
   erlang_module_name
 }
 
-/// Gets the potential gleam module name from the erlang source file name
-/// from the stack frame.
+/// Gets the potential gleam module name from the erlang stack frame.
 ///
 pub fn gleam_module_name(stack_frame: StackFrame) -> String {
   let erlang_module_name =
@@ -191,7 +190,7 @@ pub fn gleam_module_name(stack_frame: StackFrame) -> String {
     == False
 
   case has_double_ats, has_ats {
-    True, _ -> "gleam entrypoint module | " <> erlang_module_name
+    True, _ -> "gleam entrypoint | " <> erlang_module_name
     False, False -> erlang_module_name
     False, True ->
       erlang_module_name

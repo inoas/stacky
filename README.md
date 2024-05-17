@@ -12,7 +12,6 @@
 
 ```shell
 gleam add stacky
-gleam add pprint
 ```
 
 ## Usage

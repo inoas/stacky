@@ -9,7 +9,7 @@ import pprint
 /// Gets the stack trace of the current process.
 ///
 pub fn trace() -> StackTrace {
-  let erlang_stack_trace: List(FFIStackFrameTuple) = stacky_erlang_stacktrace()
+  let erlang_stack_trace: List(FFIStackFrameTuple) = stacky_erlang_stack_trace()
   erlang_stack_trace
   |> list.map(fn(frame: FFIStackFrameTuple) {
     let #(
@@ -34,24 +34,56 @@ pub fn trace() -> StackTrace {
   |> StackTrace
 }
 
-/// Gets the stack frame at the given list index.
+/// Gets the stack frame at the given 0-based list index
+/// where `0` is the last stack frame and `1` is the
+/// second-to-last stack frame and `size(stack_trace) - 1`
+/// is the first stack frame.
 ///
-/// Latest stack frame is at index 0.
 /// The StackFrame itself has an inverse index field
 /// that represents the index of the frame within the stack.
+/// see `frame_by_stack_index`.
 ///
-pub fn frame(stacktrace: StackTrace, index: Int) -> StackFrame {
-  let StackTrace(stacktrace) = stacktrace
+pub fn frame(stack_trace: StackTrace, index: Int) -> StackFrame {
+  let StackTrace(stack_trace) = stack_trace
   case
-    stacktrace
+    stack_trace
     |> list_at(index)
   {
     Ok(stackframe) -> stackframe
     Error(_) -> {
-      let panic_msg = "No stack frame at index " <> int.to_string(index) <> "."
+      let panic_msg =
+        "No stack frame at list index " <> int.to_string(index) <> "."
       panic as panic_msg
     }
   }
+}
+
+/// Gets the stack frame at the given 1-based stack index,
+/// where `1` is the first stack frame, `2` is the second stack frame,
+/// and size(stack_trace) is the last stack frame.
+///
+pub fn frame_by_stack_index(stack_trace: StackTrace, index: Int) -> StackFrame {
+  let StackTrace(stack_trace) = stack_trace
+  case
+    stack_trace
+    |> list.find(fn(item) { item.index == StackIndex(index) })
+  {
+    Ok(stackframe) -> stackframe
+    Error(_) -> {
+      let panic_msg =
+        "No stack frame with stack index " <> int.to_string(index) <> "."
+
+      panic as panic_msg
+    }
+  }
+}
+
+/// Calculates the stack trace size.
+///
+pub fn size(stack_trace: StackTrace) -> Int {
+  let StackTrace(stack_trace) = stack_trace
+  stack_trace
+  |> list.length
 }
 
 /// Converts a stack frame to a string.
@@ -285,8 +317,8 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
   }
 }
 
-@external(erlang, "stacky_ffi", "stacky_erlang_stacktrace")
-fn stacky_erlang_stacktrace() -> List(FFIStackFrameTuple)
+@external(erlang, "stacky_ffi", "stacky_erlang_stack_trace")
+fn stacky_erlang_stack_trace() -> List(FFIStackFrameTuple)
 
 /// This is a library and the main function
 /// exists as a placeholder if called as a function

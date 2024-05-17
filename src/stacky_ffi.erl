@@ -1,8 +1,8 @@
 -module(stacky_ffi).
 
--export([stacky_erlang_stacktrace/0]).
+-export([stacky_erlang_stack_trace/0]).
 
-stacky_erlang_stacktrace() ->
+stacky_erlang_stack_trace() ->
     FullStackTrace =
         try
             throw(test)
@@ -27,6 +27,7 @@ stacky_erlang_stacktrace() ->
                           -1};
                      Other ->
                          erlang:display(Other),
+						 % TODO: pass this through to the gleam layer and somehow dump the information on the user
                          throw("unexpected stack frame data - please report this as a potential bug")
                  end
               end,

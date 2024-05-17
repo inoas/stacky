@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.2.0 - 2024-05-17
+
+- Add index lookup functions from last to first (list index)
+  and/or first to last (stack frame index)
+
 ## 1.1.0 - 2024-05-16
 
-- Add inverse stack trace index.
+- Add inverseck trace index.
 - Add better stdout printing.
 
 ## 1.0.3 - 2024-05-15

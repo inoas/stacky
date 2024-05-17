@@ -182,7 +182,7 @@ pub fn print_frame_with(stack_frame: StackFrame, context c: c) {
   |> frame_to_string()
   |> io.print
 
-  io.print("\nwith context: ")
+  io.print("\n  \tcontext: ")
   pprint.debug(c)
 
   process.sleep(100)

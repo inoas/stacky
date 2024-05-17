@@ -5,7 +5,7 @@
 stacky_erlang_stack_trace() ->
     FullStackTrace =
         try
-            throw(test)
+            throw(tracing_crash)
         catch
             _Class:_Reason:Stacktrace ->
                 Stacktrace

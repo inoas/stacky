@@ -51,7 +51,7 @@ with context: #("my_context")
 ## Demo
 
 ```shell
-gleam run --module stacky/internal/sub_dir/example_in_sub_dir.gleam
+gleam run --module stacky/internal/sub_dir/example_in_sub_dir
 ```
 
 Further documentation can be found at <https://hexdocs.pm/stacky>.

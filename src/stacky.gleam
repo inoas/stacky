@@ -343,9 +343,6 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 @external(erlang, "stacky_ffi", "stacky_erlang_stack_trace")
 fn stacky_erlang_stack_trace() -> List(FFIStackFrameTuple)
 
-@external(erlang, "stacky_ffi", "stacky_get_cwd_as_binary")
-fn current_working_directory() -> String
-
 /// This is a library and the main function
 /// exists as a placeholder if called as a function
 /// from the command line.

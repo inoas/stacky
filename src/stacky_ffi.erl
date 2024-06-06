@@ -2,6 +2,14 @@
 
 -export([stacky_erlang_stack_trace/0]).
 
+enumerate_reversed(List) ->
+    I = length(List),
+    enumerate_reversed(I, 1, List).
+
+enumerate_reversed(I, S, List) ->
+    {List1, _ } = lists:mapfoldl(fun(T, Acc) -> {{Acc, T}, Acc-S} end, I, List),
+    List1.
+
 stacky_erlang_stack_trace() ->
     FullStackTrace =
         try
@@ -32,6 +40,4 @@ stacky_erlang_stack_trace() ->
                  end
               end,
               RestStacktrace),
-        ReversedStackTrace = lists:reverse(StackTrace),
-        IndexedStackTrace = lists:enumerate(ReversedStackTrace),
-        lists:reverse(IndexedStackTrace).
+        enumerate_reversed(StackTrace).

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 - 2024-06-06
+
+- Traverse StackTrace only once to enumerate it
+
 ## 1.3.0 - 2024-05-17
 
 - Improved formatting.

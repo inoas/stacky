@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.0 - 2024-06-06
+
+- Added `call_and_catch_panics` to catch panics and return a `Result`.
+  Please run `gleam run -m stacky/internal/examples/example_4`
+  to see what it does.
+- Returning reason, and by that the included panic message from gleams panics.
+
 ## 1.4.0 - 2024-06-06
 
 - Traverse the stack trace only once to enumerate it.

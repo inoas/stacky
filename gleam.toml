@@ -1,5 +1,5 @@
 name = "stacky"
-version = "1.4.0"
+version = "2.0.0"
 description = "BEAM stack trace in Gleam: a stack trace of stack frames with module name, function name, arity, file name and line number."
 licences = ["MPL-2.0"]
 repository = { type = "github", user = "inoas", repo = "stacky" }

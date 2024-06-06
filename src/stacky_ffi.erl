@@ -20,7 +20,7 @@ stacky_erlang_call_and_catch_panics(Function) when is_function(Function) ->
 stacky_erlang_stack_trace() ->
     FullStackTrace =
         try
-            throw(tracing_crash)
+            throw(trace)
         catch
             _Class:Reason:Stacktrace ->
                 {Reason, Stacktrace}

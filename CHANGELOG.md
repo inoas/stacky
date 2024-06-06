@@ -2,7 +2,7 @@
 
 ## 1.4.0 - 2024-06-06
 
-- Traverse StackTrace only once to enumerate it
+- Traverse the stack trace only once to enumerate it.
 
 ## 1.3.0 - 2024-05-17
 
@@ -26,7 +26,7 @@
 ## 1.0.2 - 2024-05-15
 
 - Pinned Erlang and Gleam versions and fix CI.
-- Added Changelog.
+- Added changelog.
 
 ## 1.0.1 - 2024-05-15
 

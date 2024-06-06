@@ -9,7 +9,32 @@ import pprint
 /// Gets the stack trace of the current process.
 ///
 pub fn trace() -> StackTrace {
-  let erlang_stack_trace: List(FFIStackFrameTuple) = stacky_erlang_stack_trace()
+  let #(reason, erlang_stack_trace) = stacky_erlang_stack_trace()
+  erlang_stack_trace |> convert_erlang_trace(reason |> pprint.format)
+}
+
+/// Calls a function and try catches any panic that occurs while executing.
+/// If no panic occured the result is returned as an Ok value.
+/// If any uncaught panic occured an Error with the stack trace is returned instead.
+///
+pub fn call_and_catch_panics(f: fn() -> a) -> Result(a, StackTrace) {
+  case stacky_erlang_call_and_catch_panics(f) {
+    Ok(a) -> a |> Ok
+    Error(#(reason, erlang_stack_trace)) -> {
+      // Swallow call_and_catch_panics() call:
+      let assert [_hd, ..erlang_stack_trace] = erlang_stack_trace
+
+      erlang_stack_trace
+      |> convert_erlang_trace(reason |> pprint.format)
+      |> Error
+    }
+  }
+}
+
+fn convert_erlang_trace(
+  erlang_stack_trace: List(#(Int, #(String, String, Int, String, Int))),
+  reason: String,
+) -> StackTrace {
   erlang_stack_trace
   |> list.map(fn(frame: FFIStackFrameTuple) {
     let #(
@@ -31,7 +56,7 @@ pub fn trace() -> StackTrace {
       erlang_line_number: ErlangLineNumber(erlang_line_number),
     )
   })
-  |> StackTrace
+  |> StackTrace(reason: reason)
 }
 
 /// Gets the stack frame at the given 0-based list index
@@ -44,7 +69,7 @@ pub fn trace() -> StackTrace {
 /// see `frame_by_stack_index`.
 ///
 pub fn frame(stack_trace: StackTrace, index: Int) -> StackFrame {
-  let StackTrace(stack_trace) = stack_trace
+  let StackTrace(_reason, stack_trace) = stack_trace
   case
     stack_trace
     |> list_at(index)
@@ -63,7 +88,7 @@ pub fn frame(stack_trace: StackTrace, index: Int) -> StackFrame {
 /// and size(stack_trace) is the last stack frame.
 ///
 pub fn frame_by_stack_index(stack_trace: StackTrace, index: Int) -> StackFrame {
-  let StackTrace(stack_trace) = stack_trace
+  let StackTrace(_reason, stack_trace) = stack_trace
   case
     stack_trace
     |> list.find(fn(item) { item.index == StackIndex(index) })
@@ -81,7 +106,7 @@ pub fn frame_by_stack_index(stack_trace: StackTrace, index: Int) -> StackFrame {
 /// Calculates the stack trace size.
 ///
 pub fn size(stack_trace: StackTrace) -> Int {
-  let StackTrace(stack_trace) = stack_trace
+  let StackTrace(_reason, stack_trace) = stack_trace
   stack_trace
   |> list.length
 }
@@ -152,8 +177,10 @@ fn gleam_module_file(qualified_module_name: String) -> String {
 /// Converts a stack trace to a string.
 ///
 pub fn trace_to_string(stack_frame: StackTrace) -> String {
-  let StackTrace(stack_trace) = stack_frame
-  stack_trace
+  let StackTrace(reason, stack_trace) = stack_frame
+  reason
+  <> "\n"
+  <> stack_trace
   |> list.map(fn(stack_frame) {
     stack_frame
     |> frame_to_string()
@@ -289,7 +316,7 @@ pub fn erlang_line_number(stack_frame: StackFrame) -> Int {
 }
 
 pub type StackTrace {
-  StackTrace(List(StackFrame))
+  StackTrace(reason: String, frames: List(StackFrame))
 }
 
 pub type StackFrame {
@@ -341,7 +368,12 @@ fn list_at(in list: List(a), get index: Int) -> Result(a, Nil) {
 }
 
 @external(erlang, "stacky_ffi", "stacky_erlang_stack_trace")
-fn stacky_erlang_stack_trace() -> List(FFIStackFrameTuple)
+fn stacky_erlang_stack_trace() -> #(a, List(FFIStackFrameTuple))
+
+@external(erlang, "stacky_ffi", "stacky_erlang_call_and_catch_panics")
+fn stacky_erlang_call_and_catch_panics(
+  fun: fn() -> a,
+) -> Result(a, #(reason, List(FFIStackFrameTuple)))
 
 /// This is a library and the main function
 /// exists as a placeholder if called as a function

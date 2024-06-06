@@ -13,7 +13,7 @@ const erlang_file_name = "stacky/build/dev/erlang/stacky/_gleam_artefacts/stacky
 
 pub fn stacky_test() {
   let expected_trace =
-    StackTrace([
+    StackTrace(reason: "foo", frames: [
       StackFrame(
         StackIndex(6),
         ErlangModuleName("stacky_test"),
@@ -78,10 +78,11 @@ pub fn stacky_test() {
 
   // The ErlangFileName is relative to wherever this test runs so we need to replace it
   let stack_trace = stacky.trace()
-  let assert StackTrace([head_frame, ..frames]) = stack_trace
+  let assert StackTrace(reason: reason, frames: [head_frame, ..frames]) =
+    stack_trace
   let head_frame =
     StackFrame(..head_frame, erlang_file_name: ErlangFileName(erlang_file_name))
-  let stack_trace = StackTrace([head_frame, ..frames])
+  let stack_trace = StackTrace(reason: reason, frames: [head_frame, ..frames])
 
   let stack_frame =
     stack_trace

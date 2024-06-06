@@ -3,6 +3,8 @@
 ## 1.4.0 - 2024-06-06
 
 - Traverse the stack trace only once to enumerate it.
+- Updated for Erlang/OTP 27.
+- Updated for Gleam 1.2.0.
 
 ## 1.3.0 - 2024-05-17
 

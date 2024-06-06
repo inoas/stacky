@@ -30,7 +30,7 @@ pub fn stacky_test() {
         FunctionName("-mf_wrapper/2-fun-0-"),
         FunctionArity(2),
         ErlangFileName("eunit_test.erl"),
-        ErlangLineNumber(273),
+        ErlangLineNumber(274),
       ),
       StackFrame(
         StackIndex(4),
@@ -38,7 +38,7 @@ pub fn stacky_test() {
         FunctionName("run_testfun"),
         FunctionArity(1),
         ErlangFileName("eunit_test.erl"),
-        ErlangLineNumber(71),
+        ErlangLineNumber(72),
       ),
       StackFrame(
         StackIndex(3),
@@ -46,7 +46,7 @@ pub fn stacky_test() {
         FunctionName("run_test"),
         FunctionArity(1),
         ErlangFileName("eunit_proc.erl"),
-        ErlangLineNumber(543),
+        ErlangLineNumber(544),
       ),
       StackFrame(
         StackIndex(2),
@@ -54,7 +54,7 @@ pub fn stacky_test() {
         FunctionName("with_timeout"),
         FunctionArity(3),
         ErlangFileName("eunit_proc.erl"),
-        ErlangLineNumber(368),
+        ErlangLineNumber(369),
       ),
       StackFrame(
         StackIndex(1),
@@ -62,7 +62,7 @@ pub fn stacky_test() {
         FunctionName("handle_test"),
         FunctionArity(2),
         ErlangFileName("eunit_proc.erl"),
-        ErlangLineNumber(526),
+        ErlangLineNumber(527),
       ),
     ])
 

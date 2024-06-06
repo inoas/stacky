@@ -22,8 +22,7 @@ stacky_erlang_stack_trace() ->
         try
             throw(trace)
         catch
-            _Class:Reason:Stacktrace ->
-                {Reason, Stacktrace}
+            _Class:Reason:Stacktrace -> {Reason, Stacktrace}
         end,
     handle_full_stack_trace(FullStackTrace).
 
@@ -32,7 +31,8 @@ handle_full_stack_trace({Reason, FullStackTrace}) ->
         StackTrace = lists:map(fun(StackFrame) ->
             case StackFrame of
                      {ModuleName, FunctionName, Arity, [{file, Filename}, {line, LineNumber}]} ->
-                         {atom_to_binary(ModuleName),
+                         {
+                          atom_to_binary(ModuleName),
                           atom_to_binary(FunctionName),
                           Arity,
                           iolist_to_binary(Filename),
@@ -45,10 +45,10 @@ handle_full_stack_trace({Reason, FullStackTrace}) ->
                           -1};
                      Other ->
                          erlang:display(Other),
-						 % TODO: pass this through to the gleam layer and somehow dump the information on the user
-						 % through Results
-					     % Also wrap everything here in try catch and return it as a result
-					     % to be handled by stacky lib
+                         % TODO: pass this through to the gleam layer and somehow dump the information on the user
+                         % through Results
+                         % Also wrap everything here in try catch and return it as a result
+                         % to be handled by stacky lib
                          throw("unexpected stack frame data - please report this as a potential bug")
                  end
               end,

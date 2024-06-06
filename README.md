@@ -22,14 +22,14 @@ let stacktrace = stacky.trace()
 io.print("\n")
 
 io.println("Trace to string:")
-stacktrace
-|> stacky.print_trace
+
+stacktrace |> stacky.print_trace
 
 io.print("\n")
 
 io.println("Frame with context:")
-stackframe
-|> stacky.print_frame_with(context: #("my_context"))
+
+stackframe |> stacky.print_frame_with(context: #("my_context"))
 ```
 
 `stdout` example:
